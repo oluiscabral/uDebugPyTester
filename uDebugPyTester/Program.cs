@@ -19,6 +19,7 @@ namespace uDebugPyTester
             {
                 Console.WriteLine("Test case error generated");
             }
+            Console.ReadKey();
         }
 
 
