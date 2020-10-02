@@ -1,5 +1,5 @@
 # uDebugPyTester
-Performs on-demand testing of [URI Online Judge][1] python problem solutions
+Performs on-demand testing of [URI Online Judge][1] Python problem solutions
 
 # References:
 [RyuzakiH, (2020) uDebug-API][2]
