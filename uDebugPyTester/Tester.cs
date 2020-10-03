@@ -20,12 +20,11 @@ namespace uDebugPyTester
         private protected Judge judge;
         private protected string fileExtension;
 
-        private readonly string testRelativePath = "tests\\";
+        private readonly string testRelativePath = "testers\\";
         private readonly string testExtension = ".tester";
         private readonly string errorExtension = ".error.txt";
 
         private string errorsDirectory;
-
         private int errorCounter = 0;
 
         public void completeTestSetup()
@@ -133,11 +132,11 @@ namespace uDebugPyTester
         {
             Directory.CreateDirectory(this.errorsDirectory);
 
-            while(File.Exists(this.errorsDirectory+this.problemID+"."+this.errorCounter+"."+this.errorExtension))
+            while(File.Exists(this.errorsDirectory+this.problemID+"."+this.errorCounter + this.errorExtension))
             {
                 this.errorCounter++;
             }
-            string errorFile = this.errorsDirectory + this.problemID + "." + this.errorCounter + "." + this.errorExtension;
+            string errorFile = this.errorsDirectory + this.problemID + "." + this.errorCounter + this.errorExtension;
             File.Create(errorFile).Close();
             new StreamWriter(errorFile).Write(input);
             Console.WriteLine("Input that generated error was created at {0}", errorFile);
