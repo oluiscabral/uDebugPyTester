@@ -10,9 +10,9 @@ namespace uDebugPyTester
     {
         private Process process = new Process();
 
-        public TesterProcess(string module, string fileName, bool useShellExecute)
+        public TesterProcess(string module, string executor, bool useShellExecute)
         {
-            process.StartInfo.FileName = fileName;
+            process.StartInfo.FileName = executor;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.UseShellExecute = useShellExecute;
             process.StartInfo.Arguments = string.Concat(module);
@@ -50,20 +50,20 @@ namespace uDebugPyTester
             }
         }
 
-        public static string getStaticOutput(string module, string fileName)
+        public static string getStaticOutput(string module, string executor)
         {
-            return getStaticOutput(module, fileName, false);
+            return getStaticOutput(module, executor, false);
         }
 
-        public static string getStaticOutput(string module, string fileName, bool useShellExecute)
+        public static string getStaticOutput(string module, string executor, bool useShellExecute)
         {
-            return getStaticOutput(module, fileName, useShellExecute, null);
+            return getStaticOutput(module, executor, useShellExecute, null);
         }
 
-        public static string getStaticOutput(string module, string fileName, bool useShellExecute, string input)
+        public static string getStaticOutput(string module, string executor, bool useShellExecute, string input)
         {
             Process process = new Process();
-            process.StartInfo.FileName = fileName;
+            process.StartInfo.FileName = executor;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.UseShellExecute = useShellExecute;
             process.StartInfo.Arguments = string.Concat(module);

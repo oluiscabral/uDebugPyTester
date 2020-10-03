@@ -15,13 +15,7 @@ namespace uDebugPyTester
 
             while (true)
             {
-                if (pyTester.Test())
-                {
-                    Console.WriteLine("All tests passed");
-                } else
-                {
-                    Console.WriteLine("Some test failed");
-                }
+                pyTester.Test();
                 if (!ConsoleUtils.getBooleanKeyAnswer("Do you want to rerun tests with the same module? [y/n]: "))
                 {
                     if (ConsoleUtils.getBooleanKeyAnswer("Change source directory? [y/n]: "))
