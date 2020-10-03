@@ -142,11 +142,11 @@ namespace uDebugPyTester
             Console.WriteLine("Input that generated error was created at {0}", errorFile);
         }
 
-        public void Test()
+        public bool Test()
         {
             int testAmount = ConsoleUtils.getIntegerInput("Insert how many tests you want to run: ", true);
-            Test(testAmount);
+            return Test(testAmount);
         }
-        abstract public void Test(int testAmount);
+        abstract public bool Test(int testAmount);
     }
 }
