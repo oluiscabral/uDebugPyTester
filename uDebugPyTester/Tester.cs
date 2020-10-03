@@ -63,7 +63,7 @@ namespace uDebugPyTester
                 sourceDir += Path.DirectorySeparatorChar;
             }
             this.sourceDir = sourceDir;
-            this.errorsDirectory = sourceDir + "\\errors\\";
+            this.errorsDirectory = sourceDir + "errors\\";
         }
 
         private bool defineProblemID()
@@ -138,7 +138,9 @@ namespace uDebugPyTester
             }
             string errorFile = this.errorsDirectory + this.problemID + "." + this.errorCounter + this.errorExtension;
             File.Create(errorFile).Close();
-            new StreamWriter(errorFile).Write(input);
+            StreamWriter sWriter = new StreamWriter(errorFile);
+            sWriter.Write(input);
+            sWriter.Close();
             Console.WriteLine("Input that generated error was created at {0}", errorFile);
         }
 
