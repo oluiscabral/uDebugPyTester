@@ -25,7 +25,7 @@ namespace uDebugPyTester
 
         public string getOutput(string input)
         {
-            this.process.StartInfo.RedirectStandardInput = input != null;
+            this.process.StartInfo.RedirectStandardInput = !string.IsNullOrEmpty(input);
 
             process.Start();
 
