@@ -49,6 +49,7 @@ namespace uDebugPyTester
                         return false;
                     }
                 }
+                Console.WriteLine("Test {0} passed", i+1);
             }
             return true;
         }
