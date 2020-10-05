@@ -42,12 +42,12 @@ namespace uDebugPyTester
                     {
                         errorCounter++;
                     }
-                    uDebugOutput = this.client.GetOutput(this.judge, this.problemID, input);
-                    if (errorCounter == 3)
+                    if (errorCounter == 4)
                     {
                         generateErrorLog(input);
                         return false;
                     }
+                    uDebugOutput = this.client.GetOutput(this.judge, this.problemID, input);
                 }
                 Console.WriteLine("Test {0} passed", i+1);
             }
