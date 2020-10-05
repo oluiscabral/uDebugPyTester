@@ -34,12 +34,20 @@ namespace uDebugPyTester
                     return false;
                 }
 
+                int errorCounter = 0;
                 string uDebugOutput = this.client.GetOutput(this.judge, this.problemID, input);
-
-                if (!output.Equals(uDebugOutput))
+                while (!output.Equals(uDebugOutput))
                 {
-                    generateErrorLog(input);
-                    return false;
+                    if (!string.IsNullOrEmpty(uDebugOutput))
+                    {
+                        errorCounter++;
+                    }
+                    uDebugOutput = this.client.GetOutput(this.judge, this.problemID, input);
+                    if (errorCounter == 3)
+                    {
+                        generateErrorLog(input);
+                        return false;
+                    }
                 }
             }
             return true;
