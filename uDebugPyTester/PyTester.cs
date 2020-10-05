@@ -4,13 +4,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Tasks;
 using uDebug.API;
 
 namespace uDebugPyTester
 {
     public class PyTester : Tester
     {
-
+        readonly private object monitor = new object();
         private string executor = "python.exe";
         public PyTester(Judge judge)
         {
@@ -23,25 +24,33 @@ namespace uDebugPyTester
         {
             TesterProcess inputProc = new TesterProcess(this.testModule, executor, false);
             TesterProcess outputProc = new TesterProcess(this.module, executor, false);
-
-            for (int i = 0; i < testAmount; i++)
+            int n = 1;
+            Parallel.For(0, testAmount, i =>
             {
-                string input = inputProc.getOutput();
-                string output = outputProc.getOutput(input);
+                Console.WriteLine("Processing test "+i);
+                string input = TesterProcess.getStaticOutput(testModule, executor);
+                string output = TesterProcess.getStaticOutput(module,executor,false, input);
 
                 if (input is null || output is null)
                 {
-                    return false;
+                    return;
                 }
-
-                string uDebugOutput = this.client.GetOutput(this.judge, this.problemID, input);
-
-                if (!output.Equals(uDebugOutput))
+                int errorCounter = 0;
+                string uDebugOutput = new Client().GetOutput(this.judge, this.problemID, input);
+                while (!output.Equals(uDebugOutput))
                 {
-                    generateErrorLog(input);
-                    return false;
+                    if (!string.IsNullOrEmpty(uDebugOutput))
+                    {
+                        errorCounter++;
+                    }
+                    uDebugOutput = new Client().GetOutput(this.judge, this.problemID, input);
+                    if (errorCounter == 5)
+                    {
+                        generateErrorLog(input);
+                        return;
+                    }
                 }
-            }
+            });
             return true;
         }
     }
